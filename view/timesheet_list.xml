@@ -1,0 +1,13 @@
+<tree>
+    <field name="no"/>
+    <field name="user"/>
+    <field name="date"/>
+    <field name="day"/>
+    <field name="project_name"/>
+    <field name="s_o_no"/>
+    <field name="task"/>
+    <field name="detail"/>
+    <field name="time_in"/>
+    <field name="time_out"/>
+    <field name="total"/>
+</tree>

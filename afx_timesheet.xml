@@ -1,0 +1,35 @@
+<tryton>
+   <data>
+      <record model="ir.ui.view" id="timesheet_view_form">
+         <field name="model">afx.module.timesheet</field>
+         <field name="type">form</field>
+         <field name="name">timesheet_form</field>
+      </record>
+
+      <record model="ir.ui.view" id="timesheet_view_list">
+         <field name="model">afx.module.timesheet</field>
+         <field name="type">tree</field>
+         <field name="name">timesheet_list</field>
+      </record>
+
+      <record model="ir.action.act_window" id="act_timesheet_form">
+         <field name="name">Timesheets</field>
+         <field name="res_model">afx.module.timesheet</field>
+      </record>
+
+      <record model="ir.action.act_window.view" id="act_timesheet_form_view1">
+         <field name="sequence" eval="10"/>
+         <field name="view" ref="timesheet_view_list"/>
+         <field name="act_window" ref="act_timesheet_form"/>
+      </record>
+
+      <record model="ir.action.act_window.view" id="act_timesheet_form_view2">
+         <field name="sequence" eval="20"/>
+         <field name="view" ref="timesheet_view_form"/>
+         <field name="act_window" ref="act_timesheet_form"/>
+      </record>
+
+      <menuitem name="Timesheets" sequence="10" id="menu_timesheet"/>
+      <menuitem parent="menu_timesheet" action="act_timesheet_form" id="menu_timesheet_form" sequence="10"/>
+   </data>
+</tryton>
