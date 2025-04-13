@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<form>
+    <notebook>
+        <page string="Filters" id="filters">
+            <group col="6" colspan="4">
+                <label name="user_filter"/>
+                <field name="user_filter"/>
+                <label name="month_filter"/>
+                <field name="month_filter"/>
+                <label name="year_filter"/>
+                <field name="year_filter"/>
+            </group>
+            <newline/>
+            <group col="2" colspan="4" id="buttons">
+                <button name="button_search" string="Search" icon="tryton-search"/>
+                <button name="button_clear" string="Clear" icon="tryton-clear"/>
+            </group>
+        </page>
+    </notebook>
+</form>

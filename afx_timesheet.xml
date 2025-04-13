@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+        <!-- Timesheet Views -->
+        <record model="ir.ui.view" id="timesheet_view_form">
+            <field name="model">afx_timesheet.timesheet</field>
+            <field name="type">form</field>
+            <field name="name">timesheet_form</field>
+        </record>
+
+        <record model="ir.ui.view" id="timesheet_view_list">
+            <field name="model">afx_timesheet.timesheet</field>
+            <field name="type">tree</field>
+            <field name="name">timesheet_list</field>
+        </record>
+
+        <!-- Search view with standard Trytond naming -->
+        <record model="ir.ui.view" id="timesheet_view_search">
+            <field name="model">afx_timesheet.timesheet</field>
+            <field name="type">form</field>
+            <field name="name">timesheet_search</field>
+        </record>
+
+        <!-- Timesheet Monthly Wizard View -->
+        <record model="ir.ui.view" id="timesheet_monthly_start_view_form">
+            <field name="model">afx_timesheet.timesheet.monthly.context</field>
+            <field name="type">form</field>
+            <field name="name">timesheet_monthly_start_form</field>
+        </record>
+
+        <!-- Timesheet Actions -->
+        <record model="ir.action.act_window" id="act_timesheet_list">
+            <field name="name">Timesheets</field>
+            <field name="res_model">afx_timesheet.timesheet</field>
+            <field name="domain" eval="[]" pyson="1"/>
+            <field name="context" eval="{'form_editable': True}" pyson="1"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_timesheet_list_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="timesheet_view_list"/>
+            <field name="act_window" ref="act_timesheet_list"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_timesheet_list_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="timesheet_view_form"/>
+            <field name="act_window" ref="act_timesheet_list"/>
+        </record>
+
+        <!-- Action called from wizard -->
+        <record model="ir.action.act_window" id="act_timesheet_month_list">
+            <field name="name">Monthly Timesheets</field>
+            <field name="res_model">afx_timesheet.timesheet</field>
+            <field name="domain" eval="[]" pyson="1"/>
+            <field name="context" eval="{'form_editable': True}" pyson="1"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_timesheet_month_list_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="timesheet_view_list"/>
+            <field name="act_window" ref="act_timesheet_month_list"/>
+        </record>
+
+        <record model="ir.action.act_window.view" id="act_timesheet_month_list_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="timesheet_view_form"/>
+            <field name="act_window" ref="act_timesheet_month_list"/>
+        </record>
+
+        <!-- Wizard Action -->
+        <record model="ir.action.wizard" id="act_timesheet_monthly">
+            <field name="name">Timesheets</field>
+            <field name="wiz_name">afx_timesheet.timesheet.monthly</field>
+        </record>
+
+        <!-- Menu Entries -->
+        <menuitem
+            id="menu_timesheet"
+            name="Timesheets"
+            sequence="10"/>
+
+        <menuitem
+            parent="menu_timesheet"
+            id="menu_timesheet_monthly"
+            action="act_timesheet_monthly"
+            sequence="10"/>
+
+    </data>
+</tryton>
