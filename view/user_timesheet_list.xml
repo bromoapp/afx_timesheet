@@ -1,0 +1,5 @@
+<tree>
+   <field name="year"/>
+   <field name="month"/>
+   <field name="user"/>
+</tree>

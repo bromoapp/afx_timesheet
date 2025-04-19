@@ -1,0 +1,11 @@
+<form>
+   <label name="year"/>
+   <field name="year"/>
+   <label name="month"/>
+   <field name="month"/>
+   <notebook colspan="6">
+      <page name="records" col="1">
+         <field name="records"/>
+      </page>
+   </notebook>
+</form>

@@ -2,16 +2,15 @@
 # this repository contains the full copyright notices and license terms.
 
 from trytond.pool import Pool
-from . import models
-
-__all__ = ['register']
-
+from . import user_timesheet
+from . import user_timesheet_record
 
 def register():
     Pool.register(
-        models.timesheet.Timesheet,
-        models.timesheet_wizard.TimesheetMonthlyContext,
+        user_timesheet.UserTimesheet,
+        user_timesheet_record.UserTimesheetRecord,
         module='afx_timesheet', type_='model')
-    Pool.register(
-        models.timesheet_wizard.TimesheetMonthly,
-        module='afx_timesheet', type_='wizard')
+    # Pool.register(
+    #     module='afx_timesheet', type_='wizard')
+    # Pool.register(
+    #     module='afx_timesheet', type_='report')

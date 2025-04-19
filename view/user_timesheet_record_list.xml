@@ -1,0 +1,11 @@
+<tree editable="1">
+   <field name="timesheet"/>
+   <field name="date"/>
+   <field name="task"/>
+   <field name="project"/>
+   <field name="so_no"/>
+   <field name="detail"/>
+   <field name="time_in"/>
+   <field name="time_out"/>
+   <field name="total"/>
+</tree>

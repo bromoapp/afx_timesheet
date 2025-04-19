@@ -1,0 +1,18 @@
+<form>
+   <label name="date"/>
+   <field name="date"/>
+   <label name="task"/>
+   <field name="task"/>
+   <label name="project"/>
+   <field name="project"/>
+   <label name="detail"/>
+   <field name="detail"/>
+   <label name="so_no"/>
+   <field name="so_no"/>
+   <label name="time_in"/>
+   <field name="time_in"/>
+   <label name="time_out"/>
+   <field name="time_out"/>
+   <label name="total"/>
+   <field name="total"/>
+</form>

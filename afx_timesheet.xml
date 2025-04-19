@@ -1,90 +1,134 @@
-<?xml version="1.0"?>
 <tryton>
-    <data>
-        <!-- Timesheet Views -->
-        <record model="ir.ui.view" id="timesheet_view_form">
-            <field name="model">afx_timesheet.timesheet</field>
-            <field name="type">form</field>
-            <field name="name">timesheet_form</field>
-        </record>
+   <data>
+      <!-- Access Groups -->
+      <!-- Definitions -->
+      <record model="res.group" id="group_user_timesheet_admin">
+         <field name="name">Timesheet Administration</field>
+      </record>
+      <!-- Assignments -->
+      <record model="res.user-res.group" id="user_admin_user_timesheet_admin">
+         <field name="user" ref="res.user_admin"/>
+         <field name="group" ref="group_user_timesheet_admin"/>
+      </record>
+      <!-- Assignments -->
+      <record model="ir.model.access" id="access_user_timesheet_admin">
+         <field name="model">afx.user.timesheet</field>
+         <field name="group" ref="group_user_timesheet_admin"/>
+         <field name="perm_read" eval="True"/>
+         <field name="perm_write" eval="True"/>
+         <field name="perm_create" eval="True"/>
+         <field name="perm_delete" eval="True"/>
+      </record>
+      <!-- Views definition -->
+      <!-- Timesheets -->
+      <record model="ir.ui.view" id="user_timesheet_view_form">
+         <field name="model">afx.user.timesheet</field>
+         <field name="type">form</field>
+         <field name="name">user_timesheet_form</field>
+      </record>
+      <record model="ir.ui.view" id="user_timesheet_view_list">
+         <field name="model">afx.user.timesheet</field>
+         <field name="type">tree</field>
+         <field name="name">user_timesheet_list</field>
+      </record>
+      <!-- My Timesheets -->
+      <record model="ir.ui.view" id="user_my_timesheet_view_form">
+         <field name="model">afx.user.timesheet</field>
+         <field name="type">form</field>
+         <field name="name">user_my_timesheet_form</field>
+      </record>
+      <record model="ir.ui.view" id="user_my_timesheet_view_list">
+         <field name="model">afx.user.timesheet</field>
+         <field name="type">tree</field>
+         <field name="name">user_my_timesheet_list</field>
+      </record>
+      <!-- Menu entry -->
+      <!-- Timesheets -->
+      <record model="ir.action.act_window" id="act_user_timesheet_form">
+         <field name="name">Timesheet</field>
+         <field name="res_model">afx.user.timesheet</field>
+      </record>
+      <record model="ir.action.act_window.view" id="act_user_timesheet_form_view1">
+         <field name="sequence" eval="10"/>
+         <field name="view" ref="user_timesheet_view_list"/>
+         <field name="act_window" ref="act_user_timesheet_form"/>
+      </record>
+      <record model="ir.action.act_window.view" id="act_user_timesheet_form_view2">
+         <field name="sequence" eval="20"/>
+         <field name="view" ref="user_timesheet_view_form"/>
+         <field name="act_window" ref="act_user_timesheet_form"/>
+      </record>
+      <!-- My Timesheets -->
+      <record model="ir.action.act_window" id="act_user_my_timesheet_form">
+         <field name="name">My Timesheet</field>
+         <field name="res_model">afx.user.timesheet</field>
+      </record>
+      <record model="ir.action.act_window.view" id="act_user_my_timesheet_form_view1">
+         <field name="sequence" eval="10"/>
+         <field name="view" ref="user_my_timesheet_view_list"/>
+         <field name="act_window" ref="act_user_my_timesheet_form"/>
+      </record>
+      <record model="ir.action.act_window.view" id="act_user_my_timesheet_form_view2">
+         <field name="sequence" eval="20"/>
+         <field name="view" ref="user_my_timesheet_view_form"/>
+         <field name="act_window" ref="act_user_my_timesheet_form"/>
+      </record>
+      <!-- Menu items -->
+      <menuitem
+         name="Timesheet"
+         sequence="50"
+         id="menu_user_timesheet"/>
+      <menuitem
+         parent="menu_user_timesheet"
+         action="act_user_timesheet_form"
+         sequence="10"
+         id="menu_user_timesheet_form"/>
+      <record model="ir.ui.menu-res.group" id="menu_user_timesheet_admin">
+            <field name="menu" ref="menu_user_timesheet_form"/>
+            <field name="group" ref="group_user_timesheet_admin"/>
+      </record>
+      <menuitem
+         parent="menu_user_timesheet"
+         action="act_user_my_timesheet_form"
+         sequence="10"
+         id="menu_user_my_timesheet_form"/>
 
-        <record model="ir.ui.view" id="timesheet_view_list">
-            <field name="model">afx_timesheet.timesheet</field>
-            <field name="type">tree</field>
-            <field name="name">timesheet_list</field>
-        </record>
-
-        <!-- Search view with standard Trytond naming -->
-        <record model="ir.ui.view" id="timesheet_view_search">
-            <field name="model">afx_timesheet.timesheet</field>
-            <field name="type">form</field>
-            <field name="name">timesheet_search</field>
-        </record>
-
-        <!-- Timesheet Monthly Wizard View -->
-        <record model="ir.ui.view" id="timesheet_monthly_start_view_form">
-            <field name="model">afx_timesheet.timesheet.monthly.context</field>
-            <field name="type">form</field>
-            <field name="name">timesheet_monthly_start_form</field>
-        </record>
-
-        <!-- Timesheet Actions -->
-        <record model="ir.action.act_window" id="act_timesheet_list">
-            <field name="name">Timesheets</field>
-            <field name="res_model">afx_timesheet.timesheet</field>
-            <field name="domain" eval="[]" pyson="1"/>
-            <field name="context" eval="{'form_editable': True}" pyson="1"/>
-        </record>
-
-        <record model="ir.action.act_window.view" id="act_timesheet_list_view1">
-            <field name="sequence" eval="10"/>
-            <field name="view" ref="timesheet_view_list"/>
-            <field name="act_window" ref="act_timesheet_list"/>
-        </record>
-
-        <record model="ir.action.act_window.view" id="act_timesheet_list_view2">
-            <field name="sequence" eval="20"/>
-            <field name="view" ref="timesheet_view_form"/>
-            <field name="act_window" ref="act_timesheet_list"/>
-        </record>
-
-        <!-- Action called from wizard -->
-        <record model="ir.action.act_window" id="act_timesheet_month_list">
-            <field name="name">Monthly Timesheets</field>
-            <field name="res_model">afx_timesheet.timesheet</field>
-            <field name="domain" eval="[]" pyson="1"/>
-            <field name="context" eval="{'form_editable': True}" pyson="1"/>
-        </record>
-
-        <record model="ir.action.act_window.view" id="act_timesheet_month_list_view1">
-            <field name="sequence" eval="10"/>
-            <field name="view" ref="timesheet_view_list"/>
-            <field name="act_window" ref="act_timesheet_month_list"/>
-        </record>
-
-        <record model="ir.action.act_window.view" id="act_timesheet_month_list_view2">
-            <field name="sequence" eval="20"/>
-            <field name="view" ref="timesheet_view_form"/>
-            <field name="act_window" ref="act_timesheet_month_list"/>
-        </record>
-
-        <!-- Wizard Action -->
-        <record model="ir.action.wizard" id="act_timesheet_monthly">
-            <field name="name">Timesheets</field>
-            <field name="wiz_name">afx_timesheet.timesheet.monthly</field>
-        </record>
-
-        <!-- Menu Entries -->
-        <menuitem
-            id="menu_timesheet"
-            name="Timesheets"
-            sequence="10"/>
-
-        <menuitem
-            parent="menu_timesheet"
-            id="menu_timesheet_monthly"
-            action="act_timesheet_monthly"
-            sequence="10"/>
-
-    </data>
+      <!-- User Timesheet Record -->
+      <!-- Views definition -->
+      <record model="ir.ui.view" id="user_timesheet_record_view_form">
+         <field name="model">afx.user.timesheet.record</field>
+         <field name="type">form</field>
+         <field name="name">user_timesheet_record_form</field>
+      </record>
+      <record model="ir.ui.view" id="user_timesheet_record_view_list">
+         <field name="model">afx.user.timesheet.record</field>
+         <field name="type">tree</field>
+         <field name="name">user_timesheet_record_list</field>
+      </record>
+      <!-- Menu entry -->
+      <record model="ir.action.act_window" id="act_user_timesheet_record_form">
+         <field name="name">Timesheet Record</field>
+         <field name="res_model">afx.user.timesheet.record</field>
+      </record>
+      <record model="ir.action.act_window.view" id="act_user_timesheet_record_form_view1">
+         <field name="sequence" eval="10"/>
+         <field name="view" ref="user_timesheet_record_view_list"/>
+         <field name="act_window" ref="act_user_timesheet_record_form"/>
+      </record>
+      <record model="ir.action.act_window.view" id="act_user_timesheet_record_form_view2">
+         <field name="sequence" eval="20"/>
+         <field name="view" ref="user_timesheet_record_view_form"/>
+         <field name="act_window" ref="act_user_timesheet_record_form"/>
+      </record>
+      <!-- Menu items -->
+      <!-- <menuitem
+         name="Timesheet Records"
+         sequence="50"
+         id="menu_user_timesheet_record"/>
+      <menuitem
+         parent="menu_user_timesheet_record"
+         action="act_user_timesheet_record_form"
+         sequence="10"
+         id="menu_user_timesheet_record_form"/> -->
+   </data>
 </tryton>
