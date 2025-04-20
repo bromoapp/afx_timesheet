@@ -14,7 +14,9 @@ class UserTimesheetRecord(ModelSQL, ModelView):
     date = fields.Date("Date", required=True)
     day = fields.Char("Day")
     task = fields.Selection([], "Status", sort=False)
-    project = fields.Many2One('afx.project', "Project")
+    project = fields.Many2One('afx.project', "Project", domain=[
+        ('so_no', '!=', None)
+    ])
     detail = fields.Text("Detail")
     so_no = fields.Char(
         "S/O Number",
@@ -73,6 +75,20 @@ class UserTimesheetRecord(ModelSQL, ModelView):
         return time(17, 0)  # Default value: 5:00 PM
     
     # -------- ONCHANGE METHOD --------
+    @fields.depends('task', 'project', 'detail', 'so_no', 'time_in', 'time_out', 'total')
+    def on_change_task(self):
+        """
+        When the task is changed, if it is not 'IN_PROJECT', empty and disable all fields.
+        """
+        if self.task != 'IN_PROJECT':
+            # Reset all fields to their default (empty) state
+            self.project = None
+            self.detail = None
+            self.so_no = None
+            self.time_in = None
+            self.time_out = None
+            self.total = None
+
     @fields.depends('project')  # Declare dependency on the 'project' field
     def on_change_with_so_no(self, name=None):
         """
@@ -96,6 +112,7 @@ class UserTimesheetRecord(ModelSQL, ModelView):
         """
         self.calculate_total_hours()
 
+    # -------- FUNCTION METHODS --------
     def calculate_total_hours(self):
         """
         Calculate the total hours spent from time_in to time_out.
@@ -120,6 +137,7 @@ class UserTimesheetRecord(ModelSQL, ModelView):
         else:
             self.total = 0.0  # Reset total if either time_in or time_out is mis
 
+    # -------- OVERRIDE METHODS --------
     @classmethod
     def write(cls, records, values, *args):
         """

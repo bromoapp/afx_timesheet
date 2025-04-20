@@ -1,19 +1,37 @@
 <tryton>
    <data>
       <!-- Access Groups -->
-      <!-- Definitions -->
+      <!-- Admin Definitions -->
       <record model="res.group" id="group_user_timesheet_admin">
          <field name="name">Timesheet Administration</field>
       </record>
-      <!-- Assignments -->
-      <record model="res.user-res.group" id="user_admin_user_timesheet_admin">
+      <!-- Admin Assignments -->
+      <record model="res.user-res.group" id="user_timesheet_admin">
          <field name="user" ref="res.user_admin"/>
          <field name="group" ref="group_user_timesheet_admin"/>
       </record>
-      <!-- Assignments -->
+      <!-- Addmin Access -->
       <record model="ir.model.access" id="access_user_timesheet_admin">
          <field name="model">afx.user.timesheet</field>
          <field name="group" ref="group_user_timesheet_admin"/>
+         <field name="perm_read" eval="True"/>
+         <field name="perm_write" eval="True"/>
+         <field name="perm_create" eval="True"/>
+         <field name="perm_delete" eval="True"/>
+      </record>
+      <!-- User Definitions -->
+      <record model="res.group" id="group_user_timesheet_user">
+         <field name="name">Timesheet User</field>
+      </record>
+      <!-- User Assignments -->
+      <record model="res.user-res.group" id="user_timesheet_user">
+         <field name="user" ref="res.user_admin"/>
+         <field name="group" ref="group_user_timesheet_user"/>
+      </record>
+      <!-- User Access -->
+      <record model="ir.model.access" id="access_timesheet_user">
+         <field name="model">afx.user.timesheet</field>
+         <field name="group" ref="group_user_timesheet_user"/>
          <field name="perm_read" eval="True"/>
          <field name="perm_write" eval="True"/>
          <field name="perm_create" eval="True"/>
@@ -45,7 +63,7 @@
       <!-- Menu entry -->
       <!-- Timesheets -->
       <record model="ir.action.act_window" id="act_user_timesheet_form">
-         <field name="name">Timesheet</field>
+         <field name="name">Timesheets</field>
          <field name="res_model">afx.user.timesheet</field>
       </record>
       <record model="ir.action.act_window.view" id="act_user_timesheet_form_view1">
@@ -60,7 +78,7 @@
       </record>
       <!-- My Timesheets -->
       <record model="ir.action.act_window" id="act_user_my_timesheet_form">
-         <field name="name">My Timesheet</field>
+         <field name="name">My Timesheets</field>
          <field name="res_model">afx.user.timesheet</field>
       </record>
       <record model="ir.action.act_window.view" id="act_user_my_timesheet_form_view1">
@@ -92,7 +110,10 @@
          action="act_user_my_timesheet_form"
          sequence="10"
          id="menu_user_my_timesheet_form"/>
-
+      <record model="ir.ui.menu-res.group" id="menu_user_timesheet_user">
+            <field name="menu" ref="menu_user_my_timesheet_form"/>
+            <field name="group" ref="group_user_timesheet_user"/>
+      </record>
       <!-- User Timesheet Record -->
       <!-- Views definition -->
       <record model="ir.ui.view" id="user_timesheet_record_view_form">
